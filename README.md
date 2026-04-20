@@ -1,5 +1,8 @@
 # Thesis variant builder
 
+> [!WARNING]
+> (Note from Frank) This project has been vibe-coded, it is not a verified-safe project for copying and replicating as all of the possible edge-cases, security concerns, accessibility concerns, and otherwise dangerous or buggy outcomes have not been thoroughly tested or documented. Use this at your own risk.
+
 Build custom subset PDFs of thesis (specific chapters, specific sections,
 any combination of frontmatter blocks) from a single `main.tex`, without
 restructuring source.
