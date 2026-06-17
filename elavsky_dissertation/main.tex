@@ -82,6 +82,23 @@ colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue %makes the links 
 \newcommand{\aka}{{a.k.a.}\xspace}
 \newcommand{\etc}{{etc\xperiod}\xspace}
 
+
+% Left-align (ragged-right) top-level figure captions; tables keep the
+% global centering set on the caption package above.
+\captionsetup[figure]{justification=raggedright,singlelinecheck=false}
+
+\newcommand{\thesisstatement}[1]{%
+  \par\addvspace{1\baselineskip}%
+  {\centering\noindent\rule{0.5\linewidth}{0.4pt}\par}%
+  \addvspace{0.7\baselineskip}%
+  \begin{adjustwidth}{1.2em}{1.2em}%
+  {\itshape #1\par}%
+  \end{adjustwidth}%
+  \addvspace{0.7\baselineskip}%
+  {\centering\noindent\rule{0.5\linewidth}{0.4pt}\par}%
+  \addvspace{1\baselineskip}%
+}
+
 % Provides a draft mark at the top of the document. 
 % \draftstamp{April, 2026}{}
 % \today
@@ -127,7 +144,9 @@ Visualization, accessibility, data interaction, tangible interfaces, tactile dat
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-In this dissertation, we contribute practical advancements in tool-making as an intervention on the accessibility of interactive data experiences. The thesis of this dissertation is as follows: \textit{This dissertation argues that the tools practitioners use to build interactive data experiences are themselves sites where accessibility barriers are produced, prevented, or alleviated for both end users and authors. This work contributes five tools, Chartability, Data Navigator, Softerware, Cross-perception, and Skeleton, that collectively center accessibility work on the empowerment of disabled and non-disabled practitioners across the full arc of evaluation, data navigation, analytical interaction, and personalization.}
+In this dissertation, we contribute practical advancements in tool-making as an intervention on the accessibility of interactive data experiences. The thesis of this dissertation is as follows:
+
+\thesisstatement{This dissertation argues that the tools practitioners use to build interactive data experiences are themselves sites where accessibility barriers are produced, prevented, or alleviated for both end users and authors. This work contributes five tools, Chartability, Data Navigator, Softerware, Cross-perception, and Skeleton, that collectively center accessibility work on the empowerment of disabled and non-disabled practitioners across the full arc of evaluation, data navigation, analytical interaction, and personalization.}
 
 Rather than framing accessibility research solely around ideal experiences for end users with disabilities, this thesis investigates why accessibility work is so difficult for the practitioners who build interactive data experiences and what tool-making can reveal about those difficulties. We organize this investigation around four domains where practitioners face the most persistent challenges: evaluation, navigation, interaction, and personalization. \textit{Chartability}, a heuristic framework contributed first and maps the full landscape of accessibility barriers. \textit{Chartability} helped us to identify and prioritize our three latter domains (navigation, interaction, and personalization) as the areas where the most severe gaps remain in practitioner work. \textit{Data Navigator} and \textit{Skeleton} then investigate navigation, finding that practitioners struggle because navigation structure has no visible, manipulable representation in their workflows. \textit{Cross-perception} engages interaction, demonstrating that blind data analysis has been constrained by existing tools and that a new interaction design framework can reshape what analytical work is possible. \textit{Softerware} addresses personalization, revealing that access needs genuinely conflict across users and that meaningful personalization requires system-level infrastructure that does not yet exist in practitioner tooling ecosytems.
 
@@ -274,9 +293,9 @@ Many, many people who I've spoken to over the course of my career, even before e
 
 People with disabilities are no small portion of the world's population. In the United States, 27\% of people self-report living with at least one disability that affects their daily lives~\cite{Okoro2018Prevalence} and all of us will eventually age into disability (if we are lucky to live a long life).
 
-People with disabilities (again, that will be all of us \textit{eventually}) deserve to participate fully in life. They deserve financial independence. They also deserve loving care and interdependence. People with disabilities have a right to make informed decisions, to know about the status of a global pandemic, and to have an understanding of local and national politics~\cite{Fan2023Accessibility}. While we use visualizations to navigate all of these domains, the goal is not to make the charts and graphs themselves somehow equally useful to all people. That would be a false measurement of success.
+People with disabilities (again, that will be all of us \textit{eventually}) deserve to participate fully in life. They deserve financial independence. They also deserve loving care and interdependence~\cite{Bennett2018Interdependence,Mingus2011AccessIntimacy,Hsueh}. People with disabilities have a right to make informed decisions, to know about the status of a global pandemic, and to have an understanding of local and national politics~\cite{Fan2023Accessibility}. While we use visualizations to navigate all of these domains, the goal is not to make the charts and graphs themselves somehow equally useful to all people. That would be a false measurement of success.
 
-\textit{Our goal then, is measured by the success of lives led by people with disabilities}~\cite{Teng2026}. Many other measurements are just metrics along the journey towards that goal. We then ask: Can people with disabilities also use data to live full lives? Can they make \textit{fast} decisions based on data? Meaningful, careful, \textit{slow} decisions? Communicate complex ideas? Crunch and clean data, develop models, find errors, and build hypotheses? Can they have memorable, immersive, beautiful, aesthetic experiences with data too~\cite{Hsueh}? Making ``visualizations'' accessible really is a misnomer. We are ultimately trying to make everything about what interactive data experiences \textit{accomplish} for people equitable and accessible.
+\textit{Our goal then, is measured by the success of lives led by people with disabilities}~\cite{Teng2026}. Many other measurements are just metrics along the journey towards that goal. We then ask: Can people with disabilities also use data to live full lives? Can they make \textit{fast} decisions based on data? Meaningful, careful, \textit{slow} decisions? Communicate complex ideas? Crunch and clean data, develop models, find errors, and build hypotheses? Can they have memorable, immersive, beautiful, aesthetic experiences with data too~\cite{Hsueh}? Ultimately, our aim is not accessible ``visualizations'' but equitable and accessible \textit{outcomes}, everything an interactive data experience \textit{accomplishes} for the people who use it.
 
 Again, if the goal of accessible visualization were about visualizations themselves, then the correct course of action would be one framed by the medical model~\cite{Marks1997}: that there is a normative state of behavior and capability (in this case, it would be ``normal'' to be able to read a visualization and make a decision) and any deviation from that norm must be corrected. This framing first assumes that the visualization should not be altered or improved. And then this framing puts the burden on the bodies of people with disabilities: that they must be ``fixed'' and given sight or brought to some equivalent state as someone who is ``healthy,'' normal, and sighted.  Plenty of scholars have already discussed why this framing is a problem, not only because it places undue burden on people with disabilities, produces pathologies and hierarchies of disability, but also because it is fundamentally not economically or ethically feasible.
 
@@ -435,7 +454,9 @@ Some existing work on customizable accessibility settings identifies what drives
 Five things from this chapter frame everything that follows. First, tools direct the work and the workers who use them, which makes tool-making a rich potential site for accessibility intervention and research into better understanding practitioner barriers when making and using tools. Second, the conversation between accessibility and data visualization is old, rich, and increasingly self-critical. Third, the field's output is lopsided: empirical breadth, exemplary prototypes, and guidance exist in abundance, while production tooling and practitioner action barely exist. The broader field's critical voices impose real constraints: tools do not solve access, and this thesis will not claim they do. Instead, critical work implores us to bridge the gap between research and practice. People with disabilities have been saying enough, it's time to get to work and try to apply what we know at scale. Fourth, the gap is concentrated where practitioners' means run out in three specific ways: navigation lacks a structural substrate, interaction lacks input techniques for analysis, and personalization lacks infrastructure. Fifth, the first step in our thesis work should be to collect the empirical record and synthesize it for applied accessibility work in the context of interactive data visualization. This is Chapter 4's \textit{Chartability} project. Given where the field stands, \textit{navigation}, \textit{input}, and \textit{personalization} are the categories of work that follow Chapter 4; the chapters ahead carry this out as the body of this thesis, and our concluding chapters return to what tool-making accomplished and what it cannot accomplish, on the other side.
 
 \chapter{Overview of Contributions}
-In this dissertation, we contribute practical advancements in tool-making as an intervention on the accessibility of interactive data experiences. The thesis of this dissertation is as follows: \textit{This dissertation argues that the tools practitioners use to build interactive data experiences are themselves sites where accessibility barriers are produced, prevented, or alleviated for both end users and authors. This work contributes five tools, Chartability, Data Navigator, Softerware, Cross-perception, and Skeleton, that collectively center accessibility work on the empowerment of disabled and non-disabled practitioners across the full arc of evaluation, data navigation, analytical interaction, and personalization.}
+In this dissertation, we contribute practical advancements in tool-making as an intervention on the accessibility of interactive data experiences. The thesis of this dissertation is as follows:
+
+\thesisstatement{This dissertation argues that the tools practitioners use to build interactive data experiences are themselves sites where accessibility barriers are produced, prevented, or alleviated for both end users and authors. This work contributes five tools, Chartability, Data Navigator, Softerware, Cross-perception, and Skeleton, that collectively center accessibility work on the empowerment of disabled and non-disabled practitioners across the full arc of evaluation, data navigation, analytical interaction, and personalization.}
 
 Rather than framing accessibility research solely around ideal experiences for end users with disabilities, this thesis investigates why accessibility work is so difficult for the practitioners who build interactive data experiences and what tool-making can reveal about those difficulties. We organize this investigation around four domains where practitioners face the most persistent challenges: evaluation, navigation, interaction, and personalization. \textit{Chartability}, a heuristic framework contributed first and maps the full landscape of accessibility barriers. \textit{Chartability} helped us to identify and prioritize our three latter domains (navigation, interaction, and personalization) as the areas where the most severe gaps remain in practitioner work. \textit{Data Navigator} and \textit{Skeleton} then investigate navigation, finding that practitioners struggle because navigation structure has no visible, manipulable representation in their workflows. \textit{Cross-perception} engages interaction, demonstrating that blind data analysis has been constrained by existing tools and that a new interaction design framework can reshape what analytical work is possible. \textit{Softerware} addresses personalization, revealing that access needs genuinely conflict across users and that meaningful personalization requires system-level infrastructure that does not yet exist in practitioner tooling ecosytems.
 
@@ -470,7 +491,7 @@ To engage this, our first main chapter focuses on \textit{Chartability}, a heuri
 
 % The second category in this thesis are \textbf{scaffolding tools}, which I define as tools that enable faster, more efficient, more scalable construction. Scaffolding, in particular, structures a complex, technical \textit{system} that governs an authoring experience. Scaffolding for example may be a software package that aggregates many actions an author would take, providing a higher-level language or set of functionalities in fewer expressions. Scaffolding tools are important to study because they engage problems of \textit{scale} that arise in design and development work: what tensions are produced when systems must be made to suit everyone, including people whose access conflicts with another? Or what trade-offs exist when certain lower-level tasks either become automated or are left as manual points design of consideration?
 
-\textit{Chartability} then opened up a significant landscape of new projects and research directions. From a combination of my existing expertise as a visualization designer and engineer, in addition to continued application of \textit{Chartability} in the wild, we began to identify the trickiest and most-difficult domains of work for practitioners. Chartability has 50 total heuristics, or tests, each organized under one of seven principles. But three larger domains began to emerge as the areas where the most severe and dramatic accessibility barriers remained unaddressed: on data \textit{navigation}, analytical \textit{interaction}, and interface \textit{personalization}.
+\textit{Chartability} then opened up a significant landscape of new projects and research directions. From a combination of my existing expertise as a visualization designer and engineer, in addition to continued application of \textit{Chartability} in the wild, we began to identify the trickiest and most-difficult domains of work for practitioners. Chartability has 50 total heuristics, or tests, each organized under one of seven principles. These three domains did not simply ``emerge'' on their own; they were evidenced by our applied work. Alongside my PhD, we applied \textit{Chartability} in a freelance role, partnering with industry, government, and non-profit organizations, conducting over 150,000 tests (both manual and automated) and working closely with dozens of designers and engineers. From that body of work, three larger domains stood out as the areas where the most severe and dramatic accessibility barriers remained unaddressed: data \textit{navigation}, analytical \textit{interaction}, and interface \textit{personalization}.
 
 So the next section of this thesis engages the first of these three: \textbf{navigation}. Navigation is a fundamental type of interaction that is leveraged by modern software-based assistive technologies. Screen readers, the primary tool used by people who are blind to interact with computers, navigate content. Additionally, many other assistive technologies, such as a sip and puff device (like the ``POSSUM'' from as far back as '63~\cite{Maling1963}) also navigate. Navigational technologies are leveraged by people with a significant array of disabilities, yet tend to be entirely ignored by existing data visualization tools, which are pre-dominantly built to support direct input (using a computer mouse).
 
@@ -580,25 +601,29 @@ Thus, the following description of Chartability’s 10-month creation is written
 \end{enumerate}
 
 \begin{table}[h]
-  \caption{Previewing Chartability's 10 Critical Heuristics\\\hspace{\textwidth}\\\hspace{\textwidth}(Coding Categories are broken into two sections: first which POUR principles contributed to the heuristic while ``Other'' refers to how many additional coding categories were assigned.)}
+  \centering
+  \caption{Previewing Chartability's 10 critical heuristics. The coding categories are split into two parts: which POUR principles contributed to each heuristic, and how many additional coding categories (``Other'') were assigned.}
   \label{tab:table}
-  % \scriptsize
-\begin{tabular}{lll|ll}
-                &             &          & \multicolumn{2}{l}{Coding Categories} \\
-  Heuristic Title & Principle   & Origin   & POUR              & Other           \\
-  % \midrule
-  Low contrast                             & Perceivable & Standard & P & 2 \\
-  Small text                               & Perceivable & Research & P & 2 \\
-  Content is only visual                   & Perceivable & Standard & P, R & 3 \\
-  Interaction has only one input           & Operable & Standard & O, R & 3 \\
-  No interaction cues/instructions         & Operable & Standard & O, U & 2 \\
-  No explanation for how to read           & Understandable & Research & U & 1 \\
-  No title, summary, or caption            & Understandable & Research & U & 1 \\
-  No table                                 & Compromising & Research & O, U, R & 3 \\
-  Data density inappropriate               & Assistive & Research & P, U & 4 \\
-  User style change not respected          & Flexible & Standard & P, O, R & 6 \\
-  ... +35 non-Critical heuristics          &  &  &  &  \\
-\end{tabular}
+  \begin{tabular}{@{}lll cc@{}}
+    \toprule
+                             &                &          & \multicolumn{2}{c}{\textbf{Coding categories}} \\
+    \cmidrule(l){4-5}
+    \textbf{Heuristic title} & \textbf{Principle} & \textbf{Origin} & \textbf{POUR} & \textbf{Other} \\
+    \midrule
+    Low contrast                     & Perceivable    & Standard & P       & 2 \\
+    Small text                       & Perceivable    & Research & P       & 2 \\
+    Content is only visual           & Perceivable    & Standard & P, R    & 3 \\
+    Interaction has only one input   & Operable       & Standard & O, R    & 3 \\
+    No interaction cues/instructions & Operable       & Standard & O, U    & 2 \\
+    No explanation for how to read   & Understandable & Research & U       & 1 \\
+    No title, summary, or caption    & Understandable & Research & U       & 1 \\
+    No table                         & Compromising   & Research & O, U, R & 3 \\
+    Data density inappropriate       & Assistive      & Research & P, U    & 4 \\
+    User style change not respected  & Flexible       & Standard & P, O, R & 6 \\
+    \midrule
+    \multicolumn{5}{@{}l}{\textit{\ldots\ and 35 additional non-critical heuristics}} \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \subsection{Compromising}
