@@ -1,2 +1,13 @@
 /variants/**/
 .DS_Store
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.out
+*.toc
+*.synctex.gz
