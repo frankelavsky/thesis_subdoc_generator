@@ -11,3 +11,4 @@
 *.out
 *.toc
 *.synctex.gz
+*.synctex(busy)
