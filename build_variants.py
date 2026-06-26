@@ -373,7 +373,7 @@ def build_cover_page_tex(wanted, thesis, archive_url):
         "\\parindent=0pt\n"
         "\\null\\vfill\n"
         "\\begin{center}\n"
-        "{\\large This is an excerpt from Frank Elavsky's dissertation on \\textit{Tool-making as an Intervention on the Accessibility of Interactive Data Experiences}, which can be accessed in full at this archival link:}\\\\[0.8em]\n"
+        "{\\large This is an excerpt from Frank Elavsky's dissertation on \\textit{Tool-making as an Intervention on the Accessibility of Interactive Data Experiences}, which can be accessed in full at this archival link (once published):}\\\\[0.8em]\n"
         f"\\url{{{archive_url}}}\n"
         "\\end{center}\n"
         "\\vspace{3em}\n"
