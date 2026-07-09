@@ -113,9 +113,9 @@ colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue %makes the links 
 {\bf Tool-making as an Intervention\\ on the Accessibility of \\Interactive Data Experiences}}
 
 \author{\bf Frank J. Elavsky}
-\date{April 2026}
+\date{July 2026 \\CMU-HCII-26-103}
 \Year{2026}
-\trnumber{CMU-CS-26-103}
+\trnumber{CMU-HCII-26-103}
 
 \committee{
 Dominik Moritz, Chair, Carnegie Mellon University HCII \\
@@ -700,7 +700,7 @@ Below we give an example of what might be a quick pass audit, using Chartability
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/figure 2.png}
+    \includegraphics[width=0.75\linewidth, alt={Testing the contrast of a chart and fixing it.}]{figures/figure 2.png}
     \caption{A low contrast chart (left) compared to a higher contrast version (right). A dropper tool is extracting the fill color of the bar and then a contrast ratio has been calculated. Note that the fill color is the same on both bars, but darker borders have been added to ensure the visualization passes contrast tests.}
     \label{fig:2}
 \end{figure}
@@ -711,7 +711,7 @@ Perceivable heuristics also include tests and tools for color vision deficiency 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/figure 3.png}
+    \includegraphics[width=0.75\linewidth, alt={The navigation order is shown on a stacked bar chart, zig-zaging forward. It is then fixed to show multiple possible paths, left/right or up/down.}]{figures/figure 3.png}
     \caption{Keyboard navigation paths on a stacked bar chart. The left shows a serial navigation example, typically just a default of rendering order. The right shows both groups (the stack of bars) and categories (the color/texture shared among bars across stacks) as dimensions to explore laterally or vertically.}
     \label{fig:3}
 \end{figure}
@@ -723,7 +723,7 @@ Using a keyboard provides an opportunity to evaluate many different heuristics: 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/figure 4.png}
+    \includegraphics[width=0.75\linewidth, alt={Showing a mouse interacting with a stacked bar chart and updating a table.}]{figures/figure 4.png}
     \caption{A mouse cursor is selecting a bar (left, shown with a thick indication border) in a stacked bar chart to filter a dataset (on the right). A system alert (red box) notifies the user of their interaction result. This selection capability must also be provided for the keyboard interface and the alert must be announced to screen readers.}
     \label{fig:4}
 \end{figure}
@@ -737,21 +737,21 @@ Next, all valuable information and functionality in a data experience should be 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.65\linewidth]{figures/figure 5.png}
+    \includegraphics[width=0.65\linewidth, alt={A chart with almost no text compared to a chart with a robust explanation.}]{figures/figure 5.png}
     \caption{Charts must have a visually available textual explanation provided that summarizes the outcome. ``Client Registration Chart'' for ``Product X'' (left) is inaccessible while ``New Product Launch a Success'' (right) gives a clear takeaway.}
     \label{fig:5}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.65\linewidth]{figures/figure 6.png}
+    \includegraphics[width=0.65\linewidth, alt={This section is about a screen reader (that's what you're using, I reckon, Hello!). The chart on the left is interactive but the screen reader semantics are uninformative. On the right, it states the role (toggle button) as well as gives feedback (selected).}]{figures/figure 6.png}
     \caption{An interactive chart displaying only ``Image'' as semantic information with no feedback provided on selection. The robust semantics given to a screen reader, ``toggle button'' (middle) as well instant feedback, ``selected'' (right) are considered proper semantics for an interactive experience.}
     \label{fig:6}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/figure 7.png}
+    \includegraphics[width=0.5\linewidth, alt={A chart that shows a trend next to a table that shows the month-by-month data for that trend listed out.}]{figures/figure 7.png}
     \caption{A line chart (left) with a single line and an accompanying data table (right). This line chart would not provide enough low-level information about each datapoint without the table provided. A table alone however would also be inaccessible. Providing both can satisfy conflicting accessibility needs for different audiences.}
     \label{fig:7}
 \end{figure}
@@ -761,7 +761,7 @@ First, auditing for cognitive barriers generally involves checking the reading l
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/figure 8.png}
+    \includegraphics[width=0.75\linewidth, alt={A dense scatterplot being accessed one element at a time compared by a screen reader to a dense scatterplot where the main outlier cluster (the important part) is being accessed instead.}]{figures/figure 8.png}
     \caption{A scatterplot with many points, where a single point within the chart can be accessed by a screen reader (left). Navigating this data piece by piece is unnecessarily tedious, so an annotation callout is provided to help the reader focus on an outlier cluster (right). The callout is being accessed by a screen reader, which is displaying the annotation’s summary as well.}
     \label{fig:8}
 \end{figure}
@@ -773,7 +773,7 @@ Auditors should first try to change system settings (such as toggling high contr
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/figure 9.png}
+    \includegraphics[width=0.75\linewidth, alt={A bar chart that has patterned textures combined with color changing into black and white (but still with textures).}]{figures/figure 9.png}
     \caption{A bar chart with categories (left) shown not conforming to Windows High Contrast White Mode. High contrast mode on Windows requires limiting color palettes, using only black or white for most elements (shown on the right).}
     \label{fig:9}
 \end{figure}
@@ -978,7 +978,7 @@ F. Elavsky, L. Nadolskis, and D. Moritz, ‘Data Navigator: An Accessibility-Cen
 \section{Overview}
 \begin{figure}[h]% specify a combination of t, b, p, or h for top, bottom, on its own page, or here
   \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
-  \includegraphics[width=\linewidth, alt={A schematic of a device with a rail and two handles. This device manipulates a chart and a separate chart is rendered as a tactile graph on a refreshable braille display.}]{data_navigator.png}
+  \includegraphics[width=\linewidth, alt={A diagram that shows an image of rich, accessible, navigation structures, icons for robust input handling, and additional graphics for flexible, semantic rendering. These images, icons, and graphics all feed into Data Navigator, which feeds into visualization toolkits, shown with a variety of different data visualization types (maps, scatterplots, lines, graphs, and bar charts).}]{data_navigator.png}
   \caption{%
   	Data Navigator provides data visualization libraries and toolkits with accessible data navigation structures, robust input handling, and flexible semantic rendering capabilities.%
   }
@@ -1044,7 +1044,7 @@ Existing data visualization toolkits have 3 major limitations that we wanted to 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=12cm,height=12cm,keepaspectratio]{figures/state-of-the-art.png}
+  \includegraphics[width=12cm,height=12cm,keepaspectratio, alt={4 different diagrams. 1. Raster image*: Start, image, end. The diagram is a straight line with 3 nodes. 2. SVG with ARIA*: Start, svg, mark 1, repeating pattern, mark n, end. Straight line with 5 nodes (and repetition). 3. Vega-Lite* (SVG+ARIA): Start, svg, x axis, y axis, mark 1, repeating pattern, mark n, legend, end. Same as SVG with ARIA but it has axes and a legend. 4. Olli**: This diagram has a main line with 7 nodes, 4 of which have branches off of them. Start, root, x axis, y axis, legend, grid, and end. The x axis shows intervals, a table, rows, and cells underneath. The y axis, legend and grid all have a note that their pattern is similar to the x axis.}]{figures/state-of-the-art.png}
   \caption{Existing accessibility trees and lists, shown using node-edge graph conventions. (*) Denotes only \textit{screen reader} access. (**) Denotes \textit{screen reader}, \textit{keyboard-only}, and \textit{pointer} access as well.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{existing}
@@ -1146,7 +1146,7 @@ The most important argument in favor of using a graph-based approach is that a g
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.65\linewidth]{figures/geoviz.png}
+  \includegraphics[width=0.65\linewidth, alt={A map, tree, and graph representation. The map is encoded with colors according to engineers per capita. The tree shows a recursive pattern and a focus indicator, as if a user has navigated to Alabama then to neighboring state Florida. Instead of backing out of the structure, the user continued to navigate between them, which created a large amount of waste and repetition between these two states and their corresponding lists of neighboring states. The graph representation shows a start, Alabama, Alaska, Arizona, and a repeating symbol. Connected to Alabama are example neighboring nodes, each listed once: Mississippi, Tennessee, Georgia, and Florida.}]{figures/geoviz.png}
   \caption{\textbf{A.} Map of engineers per capita of US states. \textbf{B.} Tree representation of the map data where states are listed alphabetically and also include links to neighboring states. The structure repeats itself if users navigate in a loop. \textbf{C.} Graph representation with the same navigation potential without redundant rendering.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{map}
@@ -1169,7 +1169,7 @@ Part of the visual design justification of using a map instead of a table is for
 \subsubsection{Specific edge instances and generic edges}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\linewidth]{figures/simple_movement.png}
+  \includegraphics[width=0.75\linewidth, alt={A diagram with 4 parts: 1. Code. // using movement dn.move('right') 2. Two nodes, BPL-A and BPL-C, an arrow pointing from BPL-A to BPL-C. 3. Code. // an edge instance 'bpla-bplc': \{ source: 'bpla', target: 'bplc', navRules: ['right', ...] \} 4. Code. // a navigation rule right: \{ key: 'ArrowRight', direction: 'target' \}.}]{figures/simple_movement.png}
   \caption{An example of how a single edge instance references a navigation rule and can even have multiple navigation rules. A navigation rule can be referenced by multiple edges.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{simple_movement}
@@ -1187,7 +1187,7 @@ Using this pattern, it is possible to have fully navigable structures using only
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\linewidth]{figures/dynamic_movement.png}
+  \includegraphics[width=0.75\linewidth, alt={A diagram with 4 parts: 1. Code. // using movement dn.move('previous position') 2. Two nodes, any node and previous, an arrow pointing from any to previous. 3. Code. // a generic edge 'any-return': \{ source: (\_d, current, \_p)=> current, target: (\_d, \_c, previous)=> previous, navRules: ['previous position', ...] \} 4. Code. // a navigation rule 'previous position': \{ key: 'Period', direction: 'target' \}.}]{figures/dynamic_movement.png}
   \caption{A generic edge, such as ``any-return'' can be applied to any node. Function calls handle dynamically assigning the edge's source and target nodes on-demand.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{dynamic_movement}
@@ -1197,7 +1197,7 @@ Using this pattern, it is possible to have fully navigable structures using only
 \subsubsection{Abstracted navigation facilitates agnostic input}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{figures/inputs.png}
+  \includegraphics[width=\linewidth, alt={Image in two parts. First part: Inputs: A. Hand swiping. B: Speaking 'left.' C. A hand gesture on camera. D. Bananas. Second part: Output: (focus moves left) A focus indicator has moved on a bar chart from one stacked bar to another on its left.}]{figures/inputs.png}
   \caption{An example navigation rule to move ``left'' can be called as a method by an event from any input modality. Some examples include common modalities such as touch swiping (\textbf{A}) or speaking ``left'' (\textbf{B}). This also includes advanced or future modalities such as gesture recognition (\textbf{C}) or touch-activated, fabricated interfaces (\textbf{D}).}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{inputs}
@@ -1218,7 +1218,7 @@ We believe that enabling agnostic input provides a rich space for future researc
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=12cm,height=12cm,keepaspectratio]{figures/semantics.png}
+  \includegraphics[width=12cm,height=12cm,keepaspectratio, alt={A diagram showing the node Alabama connected to the node Counties which is connected to a table of counties. A return link has an arrow from the table back to the Alabama node. Next to the Alabama node is the code: semantics: \{ attributes: \{ role: 'image', id: 'alabama-node' \}, description: 'Alabama. 0.004 Engineers per capita. Contains 67 counties.' \} Next to the Counties node is the code: semantics: \{ element: 'a', attributes: \{ href: '\#alabama-table' \}, description: 'Alabama Counties Data Table.' \}.}]{figures/semantics.png}
   \caption{An example of how navigation within Data Navigator could use semantic nodes as hyperlinks to provide access to other areas in an application. Alabama has a child node ``Counties'' which is a semantic HTML link element pointing to a table of counties, outside of Data Navigator's graph structure. A link is provided to return.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{semantics}
@@ -1238,7 +1238,7 @@ Data Navigator does not have to be in conflict with precision-based input, eithe
 \subsection{Rendering}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.65\linewidth]{figures/path.png}
+  \includegraphics[width=0.65\linewidth, alt={Code used to render a path that looks like an outline which then places that outline over visual elements on a data visualization. A. Node with path supplied. Code. bpl: \{ id: 'bpl', edges: [...], renderId: 'render-bpl' \} render-bpl: \{ x: 194, y: 609, width: 918, height: 116, path: 'M987 136 H 985 L 985 137 L 848...', cssClass: 'dn-path', semantics: \{...\}, visualId: null \} B. Path rendered, shown on an empty space. C. Path overlaid on visual space, over a data visualization. The path snugly wraps around a group of elements.}]{figures/path.png}
   \caption{\textbf{A.} The data specified for a node with a reference to separate data that is used to render that node. \textbf{B.} The node will render as a path at the specified Cartesian coordinates. \textbf{C.} This rendered node may then be placed over a visual.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{path}
@@ -1249,7 +1249,7 @@ Nodes in Data Navigator are semantically flexible. This is because the marks in 
 
 \begin{figure*}[h]
   \centering
-  \includegraphics[width=\textwidth]{figures/static.png}
+  \includegraphics[width=\textwidth, alt={Large, 4 part diagram. (This diagram demonstrates why a single alt text isn't enough. Too bad PDFs can't have data navigator work inside of them.) A. Raster (png) visualization, showing a stacked bar chart 'Major trophies for some English teams' B. Dual tree schema design. A graph with a main line containing 6 nodes: Start, title, legend, y axis, x axis, end. The legend and x axis each branch off into axis items 1 through n and legend items 1 through n. Both of those trees rejoin on the same children elements, sub-bar 1 through sub-bar n. Arrows are shown that map between the sub bars, from the sub-bars up to the axis and legend items, and then up to the axis and legend nodes. C. Keyboard navigation rules. Rules show LEFT/RIGHT moves across axis items, UP/DOWN moves across legend items, PERIOD moves back to user's last location, ESCAPE exits the structure, ENTER moves in along either the axis or legend while BACKSPACE moves out towards the axis and L moves out towards the legend. D. Schema instantiated. The pattern from B is applied to the chart in A, so every single node is shown rather than a generic stand-in node like 'axis item' or 'sub bar,' such as 'Arsenal' and 'BPL-A.'}]{figures/static.png}
   \caption{\textbf{A.} A raster (png) visualization of a stacked bar chart showing how 4 English teams performed across 3 major trophy contests. \textbf{B.} An example navigation schema that allows children nodes to have 2 parents (two tree structures intersecting), one for contests and one for teams. \textbf{C.} An example of Data Navigator's navigation logic abstraction, which allows edge types to have programmatic sources, targets, and rules, such as a single rule that gives all nodes an edge to exit the visualization. \textbf{D.} An instantiation of the schema, showing all corresponding rendered nodes and their edge types according to the schema design and navigation rules.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{static}
@@ -1318,7 +1318,7 @@ As a final discussion point, the resulting visualization contains no automatical
 \label{section:ecosystem}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=10cm,height=10cm,keepaspectratio]{figures/vega-lite.png}
+  \includegraphics[width=10cm,height=10cm,keepaspectratio, alt={2 part figure. Part 1: A. Various Example Vega-Lite Charts. A line chart, bar chart, and scatter plot are shown in default styling. Part 2: Diagrams. B. Canvas. Start, image, end. C. SVG + ARIA. Start, svg, x axis, y axis, mark 1, repeating pattern, mark n, legend, end. D. Canvas + DN. The same diagram as C. E. Canvas + DN (improved). The same diagram as C except that mark 1 through n are nested under a mark group, so that the marks can be skipped without navigating through all of them.}]{figures/vega-lite.png}
   \caption{\textbf{A.} Various charts from \textit{Vega-Lite} share the same general structures with each other when rendered using canvas (\textbf{B}) or SVG (\textbf{C}). \textbf{D.} With Data Navigator, we replicated the existing SVG navigation pattern (\textbf{C}) but used a canvas-based rendering for the visualization. \textbf{E.} We also improved the navigation scheme to nest marks within a mark group to allow users to skip them, if needed.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{vega-lite}
@@ -1357,7 +1357,7 @@ When measuring performance across test datasets containing 406 and 20,300 data p
 \label{section:codesign}
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/braille.png}
+  \includegraphics[width=\linewidth, alt={A. Reference parallel vector diagram, a color diagram showing 2 vectors and a vector sum plotted on an x y Cartesian space. B. Traced portion, a black and white diagram showing one vector, the vector sum, and the parallel of the second vector used to calculate half of the vector sum. C. Braille pin array output, an image of how a refreshable braille display shows the triangular shape of the traced portion.}]{figures/braille.png}
   \caption{Our material preparation process involved taking a reference (\textbf{A}), tracing it (\textbf{B}), and rendering it on a tactile display (\textbf{C}).}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{braille}
@@ -1371,7 +1371,7 @@ Since our paper is a contribution towards practical outcomes, we simulated a lig
 \subsubsection{Co-design Session Methods and Setup}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.65\linewidth]{figures/sets.png}
+  \includegraphics[width=0.65\linewidth, alt={A. Reference, a color diagram of two sets that intersect. The sets are shown as perfect circles. B. Structure, a 6 part break down of the navigable structure. Each node is shown as a traced subportion used to render to the braille display. Walkthrough: 1 is both sets, 2 is the left set, 3 is the intersection of the two sets, 4 is the right set, 5 is the subset of the left set that is excluded from the right set, and 6 is the subset of the right set that is excluded from the left set.}]{figures/sets.png}
   \caption{\textbf{A.} A reference image from \textit{Penrose} of a set diagram containing two sets intersecting. \textbf{B.} A diagram of our proposed structure, with three levels of information.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{sets}
@@ -1411,7 +1411,7 @@ Our schema design starts with a user encountering the root level (1) and may opt
 \subsubsection{Creating a Navigable Parallel Vectors Diagram}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\linewidth]{figures/vectors.png}
+  \includegraphics[width=0.75\linewidth, alt={A. Reference, a color diagram showing 2 vectors and a vector sum plotted on an x y Cartesian space. B. Structure, a 10 part breakdown of the navigable structure. Each node is shown as a traced subportion used to render to the braille display. 1 is the whole diagram, 2 is only vectors, underneath 2 are 3 traced portions, 1 for each vector. 3 is the whole diagram, underneath are the left and right halves of the equation used to calculate the sum, one for each vector and the opposite vector's parallel vector. Underneath each of these are the vectors and their own parallel vectors.}]{figures/vectors.png}
   \caption{\textbf{A.} A reference image from \textit{Penrose} of a parallel vectors diagram. \textbf{B.} A diagram of our proposed structure, with two main sub-categories of information: understanding the vectors and their parallels.}
   % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
   \label{vectors}
@@ -2693,7 +2693,7 @@ In the second stage, codes were organized using affinity diagramming~\cite{Harbo
 
 \begin{figure*}[h]% specify a combination of t, b, p, or h for top, bottom, on its own page, or here
   \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
-  \includegraphics[width=.85\textwidth, alt={9 data visualizations. This short description is inadequate in the space we have, please see our supplemental materials for our data in tabular form, analysis output, and more detailed information.}]{figures/quant.png}
+  \includegraphics[width=.85\textwidth, alt={A panel of nine small charts comparing two conditions for 15 blind participants: the cross-feelter and the screen reader alone labeled in a legend at the top left. Six of the charts are unit-column charts, where each small square is one participant; the other three (task time and the two data-query measures) are split density plots, with the cross-feelter distribution drawn on the left in blue and the screen reader distribution on the right in gray. Results are covered in more detail in the body of this chapter and the supplemental materials released on OSF for this paper draft.}]{figures/quant.png}
   \caption{%
   	Results. Completion rate and accuracy are counts. Task time, data queries (computational), and data queries (spoken) are objective, observational measures. Anxiety, stress, cognitive load, and enjoyment are Likert-scale results from 1 (``very little'') to 5 (``quite a lot'').%
   }
@@ -2917,7 +2917,7 @@ F. Elavsky, M. Vindedal, T. Gies, P. Carrington, D. Moritz, and Ø. Moseng, ‘T
 \section{Overview}
 
 \begin{figure}[h]
-\centerline{\includegraphics[width=0.8\linewidth]{options.png}}
+\centerline{\includegraphics[width=0.8\linewidth, alt={A collection of 4 different configurations of the same dashboard.}]{options.png}}
 \caption{Sometimes one design is not enough. Our design (upper left) and three different designs by low vision users. All low vision users chose larger text, but then diverged: redundant-encoding enabled (upper right), high zoom and greyscale on white (bottom left), and then dark mode (enabled externally) with greyscale (bottom right).}
   \label{fig:softerware}
 \end{figure}
@@ -3000,7 +3000,7 @@ The user should also be able to validate the value of their interaction with a \
 
 \section{Prototype: Visualization \textit{Softerware}}
 \begin{figure*}
-\centerline{\includegraphics[width=38.5pc]{dashboard.png}}
+\centerline{\includegraphics[width=38.5pc, alt={A preferences menu is shown on the left, with an explanation of how to use, and a series of UI controls and toggles for options under the headings Comprehension, Text visuals, Color and contrast, Element size, and Audio. Each category has a collapsed subsection beneath the heading for showing more options. A dashboard sits next to the menu.}]{dashboard.png}}
 \caption{Our dashboard design on US Energy Consumption in 2017 with a sankey, bar chart, line chart, and preferences menu on the left.}
   \label{fig:softdashboard}
 \end{figure*}
