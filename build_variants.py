@@ -394,12 +394,81 @@ def is_full_variant(parts_spec):
     return any(normalize_part(p) == 'all' for p in parts_spec)
 
 
-def assemble_tex(thesis, wanted, cover_page_tex=None):
+# --- Page-count instrumentation --------------------------------------------
+#
+# Injected into the generated .tex (never into main.tex) so each build can
+# report a TOTAL page count and a "real" page count. "Real" excludes: the cover
+# page, title page, keywords, table of contents, list of figures, part divider
+# pages, the bibliography, and all blank/filler pages.
+#
+# Mechanism: a shipout hook counts every page (total) and only counts a page as
+# "real" while \ifsdgcount is true. The flag starts false, is flipped on right
+# before the first body element, off around each \part, and off before the
+# bibliography. \cleardoublepage is reimplemented (identical to book's, plus a
+# grouped \sdgcountfalse) so filler pages never count regardless of region.
+# Every flip is preceded by \clearpage so the pending page is attributed to the
+# region being left (avoids an off-by-one; layout-neutral since a page break
+# happens at each of these boundaries anyway).
+PAGE_REPORT_PREAMBLE = (
+    "% ---- Auto-generated page-count instrumentation ----\n"
+    "\\makeatletter\n"
+    "\\newif\\ifsdgcount \\sdgcountfalse\n"
+    "\\newcounter{sdgtotal}\\newcounter{sdgreal}\n"
+    "\\AddToHook{shipout/before}"
+    "{\\stepcounter{sdgtotal}\\ifsdgcount\\stepcounter{sdgreal}\\fi}\n"
+    "\\renewcommand\\cleardoublepage{\\clearpage\n"
+    "  \\if@twoside\\ifodd\\c@page\\else\n"
+    "    \\begingroup\\sdgcountfalse\\hbox{}\\newpage\\endgroup\n"
+    "  \\fi\\fi}\n"
+    "\\AddToHook{enddocument/afterlastpage}"
+    "{\\typeout{^^JSDG-PAGES total=\\the\\value{sdgtotal} "
+    "real=\\the\\value{sdgreal}^^J}}\n"
+    "\\makeatother\n"
+    "% ---- End page-count instrumentation ----\n"
+)
+
+SDG_PAGES_RE = re.compile(r'SDG-PAGES total=(\d+) real=(\d+)')
+
+
+def parse_page_report(log_file: Path):
+    """Return (total, real) from a compiled .log, or None if not found."""
+    try:
+        text = log_file.read_text(errors='replace')
+    except OSError:
+        return None
+    # Last match wins (final latexmk pass).
+    m = None
+    for m in SDG_PAGES_RE.finditer(text):
+        pass
+    if m is None:
+        return None
+    return int(m.group(1)), int(m.group(2))
+
+
+def assemble_tex(thesis, wanted, cover_page_tex=None, instrument=False):
     L = thesis.lines
     out = []
 
+    count_started = [False]
+
+    def turn_on():
+        """Start counting 'real' pages before the first body element (once)."""
+        if instrument and not count_started[0]:
+            out.append("\\clearpage\\sdgcounttrue\n")
+            count_started[0] = True
+
+    def toggle(on):
+        """Flip the 'real' counter mid-document (only after it has started)."""
+        if instrument and count_started[0]:
+            out.append("\\clearpage\\sdgcount%s\n" % ("true" if on else "false"))
+
     # 1. Preamble + \begin{document}
     out.extend(L[:thesis.begin_document + 1])
+
+    # 1a. Page-count instrumentation (before the cover page, so the cover page
+    #     ships while the flag is off and is therefore excluded from "real").
+    if instrument:
+        out.append(PAGE_REPORT_PREAMBLE)
 
     # 1b. Cover page for abridged variants (injected immediately after \begin{document},
     #     before \frontmatter so it's unnumbered and doesn't interact with page styles).
@@ -438,16 +507,19 @@ def assemble_tex(thesis, wanted, cover_page_tex=None):
 
     # 7. Abstract
     if wanted['abstract']:
+        turn_on()  # abstract is the first "real" body element, if present
         end = thesis.acknowledgments_start or thesis.mainmatter
         out.extend(L[thesis.abstract_start:end])
 
     # 8. Acknowledgements
     if wanted['acknowledgements']:
+        turn_on()  # otherwise acknowledgements start the "real" count
         end = thesis.mainmatter if thesis.mainmatter is not None else thesis.end_document
         out.extend(L[thesis.acknowledgments_start:end])
 
     # 9. \mainmatter
     if has_mainmatter and thesis.mainmatter is not None:
+        turn_on()  # otherwise the first chapter starts the "real" count
         first_struct = None
         if thesis.parts:
             first_struct = thesis.parts[0]['line']
@@ -479,10 +551,13 @@ def assemble_tex(thesis, wanted, cover_page_tex=None):
                 continue
             # Force correct part number (Roman numerals)
             out.append(f"\\setcounter{{part}}{{{obj['number'] - 1}}}\n")
+            # Part divider page(s) are not "real" content.
+            toggle(False)
             # Emit [part_line, next_event_line)
             next_line = (events[k + 1][0] if k + 1 < len(events)
                          else (thesis.backmatter or thesis.end_document))
             out.extend(L[obj['line']:next_line])
+            toggle(True)
         else:  # chapter
             ch_idx = obj
             if ch_idx not in wanted_ch_indices:
@@ -516,6 +591,7 @@ def assemble_tex(thesis, wanted, cover_page_tex=None):
 
     # 11. Backmatter + bibliography
     if wanted['references']:
+        toggle(False)  # references are not "real" content
         if thesis.backmatter is not None and thesis.end_document is not None:
             out.extend(L[thesis.backmatter:thesis.end_document])
 
@@ -605,6 +681,8 @@ def main():
                     help='Never add a cover page (even for abridged variants)')
     ap.add_argument('--force-cover', action='store_true',
                     help='Always add a cover page (even for the full variant)')
+    ap.add_argument('--no-page-report', dest='page_report', action='store_false',
+                    help='Do not instrument the .tex or log total/real page counts')
     args = ap.parse_args()
 
     source = Path(args.source).resolve()
@@ -628,6 +706,7 @@ def main():
         variants = parse_config(cfg)
 
     project_dir = source.parent
+    summary = []   # [(name, total, real)] where total/real may be None
     for name, parts in variants:
         print(f"→ {name}: {', '.join(parts)}")
         wanted = resolve_wanted(parts, thesis)
@@ -642,7 +721,8 @@ def main():
 
         cover_tex = (build_cover_page_tex(wanted, thesis, args.archive_url)
                      if add_cover else None)
-        tex_content = assemble_tex(thesis, wanted, cover_page_tex=cover_tex)
+        tex_content = assemble_tex(thesis, wanted, cover_page_tex=cover_tex,
+                                   instrument=args.page_report)
 
         variant_dir = out_root / name
         variant_dir.mkdir(parents=True, exist_ok=True)
@@ -675,8 +755,33 @@ def main():
                 # Also copy the PDF up to out_root for easy access
                 shutil.copy2(pdf_file, out_root / f"{name}.pdf")
                 print(f"   built  {(out_root / (name + '.pdf')).relative_to(Path.cwd())}")
+                if args.page_report:
+                    report = parse_page_report(variant_dir / f"{name}.log")
+                    if report is not None:
+                        total, real = report
+                        print(f"   pages  total={total}  real={real}")
+                        summary.append((name, total, real))
+                    else:
+                        print("   pages  (report not found in log)")
+                        summary.append((name, None, None))
             else:
                 print(f"   ! PDF not produced (check {variant_dir}/{name}.log)")
+                summary.append((name, None, None))
+
+    # --- Final summary of "real" page lengths -------------------------------
+    if not args.no_compile and args.page_report and summary:
+        name_w = max(len(n) for n, _, _ in summary)
+        name_w = max(name_w, len("Build"))
+        print("\n" + "=" * (name_w + 24))
+        print("  Page summary (real pages)")
+        print("=" * (name_w + 24))
+        print(f"  {'Build'.ljust(name_w)}   {'real':>5}   {'total':>5}")
+        print("  " + "-" * (name_w + 18))
+        for name, total, real in sorted(summary, key=lambda r: (r[2] is None, -(r[2] or 0))):
+            real_s = str(real) if real is not None else "  —"
+            total_s = str(total) if total is not None else "  —"
+            print(f"  {name.ljust(name_w)}   {real_s:>5}   {total_s:>5}")
+        print("=" * (name_w + 24))
 
 
 if __name__ == '__main__':
